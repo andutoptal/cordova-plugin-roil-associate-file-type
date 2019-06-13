@@ -1,0 +1,15 @@
+{
+  "name": "cordova-plugin-roil-associate-file-type",
+  "version": "1.0.0",
+  "description": "Associate File Type Cordova Plugin",
+  "main": "www/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "The ROIL team <jon@roil.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/cordova": "0.0.34",
+    "typescript": "^3.5.1"
+  }
+}

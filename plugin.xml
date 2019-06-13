@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-roil-associate-file-type" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Associate File Type Cordova Plugin</name>
+    <description>Plugin to allow a Cordova app to be associated with specific file types</description>
+    <author>The ROIL team &lt;jon@roil.com&gt;</author>
+    <license>Apache 2.0</license>
+    <js-module name="ROILAssociateFileType" src="www/index.js">
+        <merges target="cordova.plugins" />
+    </js-module>
+    <preference name="EXTENSION" />
+    <preference name="ANDROID_MIME_TYPE" />
+    <preference name="IOS_UIT_ID" />
+    <preference name="IOS_UIT_PARENT" />
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="ROILAssociateFileType">
+                <param name="android-package" value="com.roil.cordova.plugin.associatefiletype.AssociateFileTypePlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <config-file parent="/*/application/activity" target="AndroidManifest.xml">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" android:host="*" android:mimeType="$ANDROID_MIME_TYPE" android:pathPattern=".*\\.$EXTENSION" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" android:host="*" android:mimeType="$ANDROID_MIME_TYPE" android:pathPattern=".*\\.$EXTENSION" />
+            </intent-filter>
+        </config-file>
+
+        <source-file src="src/android/java/com/roil/cordova/plugin/associatefiletype/AssociateFileTypePlugin.java" target-dir="src/com/roil/cordova/plugin/associatefiletype" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="ROILAssociateFileType">
+                <param name="ios-package" value="AssociateFileTypePlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
+            <array>
+                <dict>
+                    <key>CFBundleTypeIconFiles</key>
+                    <array/>
+                    <key>CFBundleTypeName</key>
+                    <string>$EXTENSION File</string>
+                    <key>LSItemContentTypes</key>
+                    <array>
+                        <string>$IOS_UIT_ID</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+        <config-file target="*-Info.plist" parent="UTImportedTypeDeclarations">
+            <array>
+                <dict>
+                    <key>UTTypeConformsTo</key>
+                    <array>
+                        <string>$IOS_UIT_PARENT</string>
+                    </array>
+                    <key>UTTypeDescription</key>
+                    <string>$EXTENSION File</string>
+                    <key>UTTypeIconFiles</key>
+                    <array/>
+                    <key>UTTypeIdentifier</key>
+                    <string>$IOS_UIT_ID</string>
+                    <key>UTTypeTagSpecification</key>
+                    <dict>
+                        <key>public.filename-extension</key>
+                        <array>
+                            <string>$EXTENSION</string>
+                        </array>
+                    </dict>
+                </dict>
+            </array>
+        </config-file>
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+        <source-file src="src/ios/AssociateFileTypePlugin.swift" />
+    </platform>
+</plugin>
